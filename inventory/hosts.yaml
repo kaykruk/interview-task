@@ -1,0 +1,28 @@
+all:
+  children:
+    windows:
+      hosts:
+        win-dev-01:
+          ansible_host: 192.168.1.10
+        win-test-01:
+          ansible_host: 192.168.1.20
+        win-prod-01:
+          ansible_host: 192.168.1.30
+      vars:
+        # WinRM connection settings for Windows hosts
+        ansible_connection: winrm
+        ansible_winrm_transport: ntlm
+        ansible_winrm_server_cert_validation: ignore
+    
+    linux:
+      hosts:
+        linux-dev-01:
+          ansible_host: 192.168.2.10
+        linux-test-01:
+          ansible_host: 192.168.2.20
+        linux-prod-01:
+          ansible_host: 192.168.2.30
+      vars:
+        # SSH connection settings for Linux hosts
+        ansible_connection: ssh
+        ansible_user: ansible
