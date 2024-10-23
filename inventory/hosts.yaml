@@ -1,28 +1,35 @@
+#Simple inventory file for Windows and Linux servers
 all:
   children:
     windows:
       hosts:
+        #Development Windows server
         win-dev-01:
           ansible_host: 192.168.1.10
+        #Test Windows server
         win-test-01:
           ansible_host: 192.168.1.20
+        #Production Windows server
         win-prod-01:
           ansible_host: 192.168.1.30
       vars:
-        # WinRM connection settings for Windows hosts
+        #Basic WinRM settings for Windows connections
         ansible_connection: winrm
         ansible_winrm_transport: ntlm
         ansible_winrm_server_cert_validation: ignore
     
     linux:
       hosts:
+        #Development Linux server
         linux-dev-01:
           ansible_host: 192.168.2.10
+        #Test Linux server
         linux-test-01:
           ansible_host: 192.168.2.20
+        #Production Linux server
         linux-prod-01:
           ansible_host: 192.168.2.30
       vars:
-        # SSH connection settings for Linux hosts
+        #Basic SSH settings for Linux connections
         ansible_connection: ssh
         ansible_user: ansible
