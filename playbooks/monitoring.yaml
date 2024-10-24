@@ -1,0 +1,23 @@
+---
+# Basic system monitoring for both platforms
+- name: Setup Basic Monitoring
+  hosts: all
+  tasks:
+    # Disk space check
+    - name: Check Disk Space
+      shell: df -h / | awk 'NR==2 {print $5}' | sed 's/%//'
+      register: disk_usage
+      when: ansible_os_family == "RedHat" or ansible_os_family == "Debian"
+
+    # Windows specific monitoring
+    - name: Check Windows Disk Space
+      win_shell: Get-WmiObject Win32_LogicalDisk | Select-Object DeviceID, FreeSpace
+      register: win_disk_space
+      when: ansible_os_family == "Windows"
+
+    # Simple email alert
+    - name: Send Alert if Issues Found
+      mail:
+        to: "{{ alert_email }}"
+        subject: "System Alert - {{ inventory_hostname }}"
+      when: disk_usage.stdout|int > 90 or win_disk_space.stdout|int < 10
