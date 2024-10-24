@@ -1,0 +1,10 @@
+---
+# Windows Update Management
+- name: Manage Windows Updates
+  hosts: windows
+  tasks:
+    - name: Install Windows Updates
+      win_updates:
+        category_names: SecurityUpdates
+        reboot: yes
+      register: update_result
