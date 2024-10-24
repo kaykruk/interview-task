@@ -1,0 +1,8 @@
+---
+- name: Manage Windows Antivirus
+  hosts: windows
+  tasks:
+    - name: Enable Windows Defender
+      win_shell: |
+        Set-MpPreference -DisableRealtimeMonitoring $false
+      when: av_product == "Windows Defender"
