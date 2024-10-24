@@ -1,0 +1,21 @@
+---
+# Windows credentials
+ansible_password: "{{ vault_ansible_password }}"
+
+# Service settings
+service_name_1: "BITS"  # Background Intelligent Transfer Service
+service_name_2: "Print Spooler"
+
+# Monitoring thresholds
+cpu_threshold: 80
+memory_threshold: 90
+disk_threshold: 85
+
+# Email alerts
+alert_email: "admin@gmail.com"
+
+# Windows updates
+update_schedule: "0 3 * * 0"  # Weekly at 3 AM Sunday
+
+# Antivirus
+av_product: "Windows Defender"

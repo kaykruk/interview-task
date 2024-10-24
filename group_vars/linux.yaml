@@ -1,0 +1,17 @@
+---
+# SSH Authentication
+ansible_ssh_private_key_file: ~/.ssh/id_rsa
+
+# Monitoring thresholds
+cpu_threshold: 80
+memory_threshold: 90
+disk_threshold: 85
+
+# Email alerts
+alert_email: "admin@gmail.com"
+
+# Updates
+update_schedule: "0 3 * * 0"  # Weekly at 3 AM Sunday
+
+# Antivirus
+av_product: "ClamAV"
