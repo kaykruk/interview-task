@@ -1,0 +1,13 @@
+---
+- name: Deploy VirtualBox VM
+  hosts: localhost
+  tasks:
+    - name: Create VM
+      command: >
+        VBoxManage createvm 
+        --name "windows_server" 
+        --ostype "Windows2019_64" 
+        --register
+
+    - name: Set Memory
+      command: VBoxManage modifyvm "windows_server" --memory 4096
