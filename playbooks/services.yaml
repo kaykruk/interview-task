@@ -1,0 +1,42 @@
+---
+# Windows Service Management
+- name: Manage Windows Services
+  hosts: windows
+  tasks:
+    # Common Windows services
+    - name: Ensure Windows Update service is running
+      win_service:
+        name: wuauserv
+        state: started
+        start_mode: auto
+
+    - name: Configure Print Spooler
+      win_service:
+        name: Spooler
+        state: started
+        start_mode: auto
+
+# Linux Service Management
+- name: Manage Linux Services
+  hosts: linux
+  tasks:
+    # Essential system services
+    - name: Ensure SSH service is running
+      service:
+        name: "{{ 'sshd' if ansible_os_family == 'RedHat' else 'ssh' }}"
+        state: started
+        enabled: yes
+
+    # System scheduler
+    - name: Ensure Cron service is running
+      service:
+        name: "{{ 'crond' if ansible_os_family == 'RedHat' else 'cron' }}"
+        state: started
+        enabled: yes
+
+    # System logging
+    - name: Ensure System Logger is running
+      service:
+        name: "{{ 'rsyslog' if ansible_os_family in ['Debian', 'RedHat'] else 'syslog' }}"
+        state: started
+        enabled: yes
