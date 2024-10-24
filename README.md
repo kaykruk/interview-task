@@ -2,7 +2,7 @@
 
 # Windows and Linux Server Management with Ansible
 
-This repository contains Ansible playbooks and roles for managing Windows and Linux servers in a development, testing, and production environment.
+This repository contains Ansible playbooks and roles for managing Windows and Linux servers in a testing, and production environment.
 
 Virtualbox was used instead of vmware
 
