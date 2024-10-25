@@ -2,6 +2,8 @@
 # System updates management
 - name: System Updates
   hosts: all
+  vars:
+    maintenance_schedule: "0 3 * * 0"  # Sunday 3 AM
   tasks:
     # Windows updates
     - name: Install Windows updates
