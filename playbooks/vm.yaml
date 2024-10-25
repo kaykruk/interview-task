@@ -1,13 +1,34 @@
 ---
-- name: Deploy VirtualBox VM
+# Simple VM deployment for Windows, RHEL, and Ubuntu
+- name: Deploy VirtualBox VMs
   hosts: localhost
   tasks:
-    - name: Create VM
+    - name: Create Windows Server VM
       command: >
         VBoxManage createvm 
         --name "windows_server" 
         --ostype "Windows2019_64" 
         --register
 
-    - name: Set Memory
-      command: VBoxManage modifyvm "windows_server" --memory 4096
+    - name: Create RHEL Server VM
+      command: >
+        VBoxManage createvm 
+        --name "rhel_server" 
+        --ostype "RedHat_64" 
+        --register
+
+    - name: Create Ubuntu Server VM
+      command: >
+        VBoxManage createvm 
+        --name "ubuntu_server" 
+        --ostype "Ubuntu_64" 
+        --register
+
+    - name: Set VM Memory
+      command: >
+        VBoxManage modifyvm "{{ item }}" 
+        --memory 2048
+      loop:
+        - windows_server
+        - rhel_server
+        - ubuntu_server
