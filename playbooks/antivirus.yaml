@@ -1,8 +1,30 @@
 ---
-- name: Manage Windows Antivirus
-  hosts: windows
+# Simple antivirus management
+- name: Configure Antivirus
+  hosts: all
   tasks:
+    # Windows Defender
     - name: Enable Windows Defender
-      win_shell: |
-        Set-MpPreference -DisableRealtimeMonitoring $false
-      when: av_product == "Windows Defender"
+      win_shell: Set-MpPreference -DisableRealtimeMonitoring $false
+      when: ansible_os_family == "Windows"
+
+    # Debian/Ubuntu
+    - name: Install ClamAV on Debian
+      apt:
+        name: clamav
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    # RHEL/CentOS
+    - name: Install ClamAV on RHEL
+      yum:
+        name: clamav
+        state: present
+        enablerepo: epel
+      when: ansible_os_family == "RedHat"
+
+    # Update virus definitions
+    - name: Update virus database
+      command: freshclam
+      when: ansible_os_family != "Windows"
